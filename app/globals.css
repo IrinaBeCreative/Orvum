@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', system-ui, sans-serif;
+    --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  * {
+    @apply border-border box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-bg text-white font-sans;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  ::selection {
+    background-color: #C9A24D;
+    color: #050505;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #111111;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2A2A2A;
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #C9A24D;
+  }
+}
+
+@layer components {
+  /* ── Buttons ── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-gold text-bg font-semibold text-xs tracking-[0.15em] uppercase
+           px-7 py-4 transition-all duration-300
+           hover:bg-gold-2 hover:shadow-[0_0_32px_rgba(201,162,77,0.3)]
+           active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-transparent text-white font-semibold text-xs tracking-[0.15em] uppercase
+           border border-gold px-7 py-4 transition-all duration-300
+           hover:bg-gold hover:text-bg
+           active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           bg-transparent text-text-muted font-medium text-xs tracking-[0.1em] uppercase
+           border border-border px-5 py-3 transition-all duration-200
+           hover:border-gold/50 hover:text-gold;
+  }
+
+  /* ── Inputs ── */
+  .field-input {
+    @apply w-full bg-transparent border border-border text-white text-sm
+           px-4 py-3.5 transition-colors duration-200 outline-none
+           placeholder-text-dim focus:border-gold;
+  }
+  .field-label {
+    @apply block text-[10px] tracking-[0.25em] uppercase text-text-muted mb-2 font-medium;
+  }
+  .field-error {
+    @apply text-[11px] text-amber-400 mt-1.5;
+  }
+
+  /* ── Cards ── */
+  .card {
+    @apply bg-surface border border-border p-6 transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:border-gold/30 hover:bg-surface-2;
+  }
+
+  /* ── Section ── */
+  .section-label {
+    @apply text-gold text-[10px] tracking-[0.35em] uppercase font-semibold mb-3;
+  }
+  .section-title {
+    @apply font-display text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight;
+  }
+  .section-subtitle {
+    @apply text-text-muted text-sm leading-relaxed max-w-xl;
+  }
+  .gold-rule {
+    @apply w-12 h-px bg-gold my-6;
+  }
+
+  /* ── Admin ── */
+  .admin-card {
+    @apply bg-surface border border-border rounded-none p-5;
+  }
+  .admin-stat {
+    @apply bg-surface-2 border border-border p-5 flex flex-col gap-1;
+  }
+  .admin-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 text-[10px] tracking-[0.15em] uppercase font-semibold;
+  }
+  .admin-table th {
+    @apply text-[10px] tracking-[0.2em] uppercase text-text-dim font-medium px-4 py-3 text-left border-b border-border;
+  }
+  .admin-table td {
+    @apply px-4 py-3.5 text-sm border-b border-border/50 text-text-muted;
+  }
+  .admin-table tr:hover td {
+    @apply bg-surface-2;
+  }
+
+  /* ── Lead stages ── */
+  .stage-new          { @apply bg-gold/10 text-gold border-gold/30; }
+  .stage-photos       { @apply bg-amber-500/10 text-amber-400 border-amber-500/30; }
+  .stage-estimate     { @apply bg-sky-500/10 text-sky-400 border-sky-500/30; }
+  .stage-approved     { @apply bg-emerald-500/10 text-emerald-400 border-emerald-500/30; }
+  .stage-deposit      { @apply bg-violet-500/10 text-violet-400 border-violet-500/30; }
+  .stage-scheduled    { @apply bg-cyan-500/10 text-cyan-400 border-cyan-500/30; }
+  .stage-assigned     { @apply bg-orange-500/10 text-orange-400 border-orange-500/30; }
+  .stage-completed    { @apply bg-teal-500/10 text-teal-400 border-teal-500/30; }
+  .stage-review       { @apply bg-pink-500/10 text-pink-400 border-pink-500/30; }
+  .stage-repeat       { @apply bg-gold/20 text-gold-2 border-gold-2/30; }
+  .stage-cancelled    { @apply bg-neutral-500/10 text-neutral-400 border-neutral-500/30; }
+}
+
+/* ── Animations ── */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, #111 0%, #1a1a1a 50%, #111 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ── React DatePicker dark theme ── */
+.react-datepicker-wrapper { @apply w-full; }
+.react-datepicker { @apply !bg-surface !border-border !font-sans !text-white !rounded-none; }
+.react-datepicker__header { @apply !bg-bg !border-border; }
+.react-datepicker__current-month,
+.react-datepicker__day-name { @apply !text-text-muted; }
+.react-datepicker__day { @apply !text-white hover:!bg-gold hover:!text-bg !rounded-none; }
+.react-datepicker__day--selected { @apply !bg-gold !text-bg; }
+.react-datepicker__day--disabled { @apply !text-border !cursor-not-allowed; }
+.react-datepicker__navigation-icon::before { @apply !border-gold; }
+.react-datepicker__triangle { display: none; }
+
+/* ── Prose (blog) ── */
+.prose-orvum {
+  @apply text-text-muted text-sm leading-relaxed;
+}
+.prose-orvum h2 { @apply font-display text-2xl text-white font-light mt-10 mb-4; }
+.prose-orvum h3 { @apply font-display text-xl text-white font-light mt-8 mb-3; }
+.prose-orvum p  { @apply mb-5; }
+.prose-orvum a  { @apply text-gold hover:underline; }
+.prose-orvum ul { @apply list-none ml-0 mb-5 flex flex-col gap-2; }
+.prose-orvum ul li::before { content: '—'; @apply text-gold mr-3; }
+.prose-orvum blockquote { @apply border-l-2 border-gold pl-5 italic text-text-muted my-6; }
