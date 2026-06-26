@@ -8,9 +8,6 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
     ],
   },
-  experimental: {
-    ppr: false,
-  },
 }
 
 export default nextConfig

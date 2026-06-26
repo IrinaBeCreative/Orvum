@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { verifyAdminToken } from '@/lib/auth'
+import { jwtVerify } from 'jose'
+
+const SECRET = new TextEncoder().encode(
+  process.env.JWT_SECRET ?? 'fallback-dev-secret-change-in-production-min-32-chars'
+)
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
-  // Protect /admin routes (except /admin/login)
   if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     const token = req.cookies.get('orvum_admin_token')?.value
 
@@ -12,8 +15,9 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL('/admin/login', req.url))
     }
 
-    const session = await verifyAdminToken(token)
-    if (!session) {
+    try {
+      await jwtVerify(token, SECRET)
+    } catch {
       return NextResponse.redirect(new URL('/admin/login', req.url))
     }
   }
